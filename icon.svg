@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="space" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#0e1424"/>
+      <stop offset="60%" stop-color="#050811"/>
+      <stop offset="100%" stop-color="#020307"/>
+    </radialGradient>
+    <linearGradient id="suit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f7fa"/>
+      <stop offset="70%" stop-color="#d6dde8"/>
+      <stop offset="100%" stop-color="#98a6bd"/>
+    </linearGradient>
+    <linearGradient id="crimson" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff3b3b"/>
+      <stop offset="100%" stop-color="#b81414"/>
+    </linearGradient>
+    <radialGradient id="helmet" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.7)"/>
+      <stop offset="30%" stop-color="rgba(140,210,255,0.3)"/>
+      <stop offset="80%" stop-color="rgba(30,80,140,0.15)"/>
+      <stop offset="100%" stop-color="rgba(100,190,255,0.6)"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="url(#space)"/>
+
+  <!-- Stars -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="80" cy="90" r="2.5"/>
+    <circle cx="420" cy="110" r="2"/>
+    <circle cx="340" cy="60" r="1.5"/>
+    <circle cx="120" cy="400" r="2"/>
+    <circle cx="440" cy="380" r="2.5"/>
+    <circle cx="60" cy="240" r="1.5"/>
+  </g>
+
+  <!-- Distant Delta Rocketship -->
+  <g transform="translate(360, 140) rotate(-45) scale(0.6)" filter="url(#glow)">
+    <path d="M0,-50 L14,20 L0,12 L-14,20 Z" fill="#f0f4fa"/>
+    <path d="M0,-50 L6,20 L0,12 Z" fill="#ff3b3b"/>
+    <path d="M0,12 L-26,30 L-14,14 Z" fill="#ff3b3b"/>
+    <path d="M0,12 L26,30 L14,14 Z" fill="#ff3b3b"/>
+  </g>
+
+  <!-- Curving Tether Line -->
+  <path d="M120,460 Q 200,320 256,330 T 400,240" fill="none" stroke="#68d8d6" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/>
+  <circle cx="400" cy="240" r="6" fill="#68d8d6" filter="url(#glow)"/>
+
+  <!-- Astronaut Suit (Shoulders & Torso) -->
+  <path d="M160,460 Q 256,360 352,460 Z" fill="url(#suit)"/>
+  <path d="M236,390 L276,390 L286,460 L226,460 Z" fill="url(#crimson)"/>
+
+  <!-- Collar / Neck Ring -->
+  <ellipse cx="256" cy="320" rx="94" ry="32" fill="#2b3342" stroke="#50617a" stroke-width="4"/>
+
+  <!-- Head & Hair inside Helmet -->
+  <ellipse cx="256" cy="240" rx="60" ry="72" fill="#ffcca3"/>
+  <path d="M200,220 Q 256,160 308,210 Q 290,180 256,180 Q 215,180 200,220 Z" fill="#241b18"/>
+
+  <!-- Glass Bubble Helmet -->
+  <circle cx="256" cy="230" r="96" fill="url(#helmet)" stroke="rgba(190,235,255,0.8)" stroke-width="4"/>
+  <!-- Highlight Glint on Helmet -->
+  <ellipse cx="220" cy="180" rx="28" ry="14" fill="#ffffff" opacity="0.6" transform="rotate(-30, 220, 180)"/>
+  <circle cx="310" cy="270" r="8" fill="#ffffff" opacity="0.4"/>
+</svg>

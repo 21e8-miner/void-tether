@@ -1,0 +1,19 @@
+{
+  "name": "VOID TETHER — 1968 Spacewalk Duel",
+  "short_name": "VOID TETHER",
+  "description": "Zero-G spacewalk action & grappling combat inspired by vintage sci-fi pulp space art for webcade.fun arcade.",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#030509",
+  "theme_color": "#030509",
+  "categories": ["games", "arcade", "action"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
