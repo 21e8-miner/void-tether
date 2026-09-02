@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#030509">
+<meta name="theme-color" content="#030408">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <title>VOID TETHER — 1968 Spacewalk Duel</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{width:100%;height:100%;overflow:hidden;background:#030509;color:#e8f2fc;
+  html,body{width:100%;height:100%;overflow:hidden;background:#030408;color:#f0f6fc;
     font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     -webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none;
     touch-action:none;-webkit-touch-callout:none;overscroll-behavior:none}
@@ -24,56 +24,55 @@
   #hud.on{opacity:1}
 
   #pScore{position:absolute;top:calc(12px + env(safe-area-inset-top));left:calc(16px + env(safe-area-inset-left))}
-  .lbl{font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:rgba(140,185,230,.6);line-height:1}
-  #score{font-size:24px;font-weight:700;letter-spacing:.02em;line-height:1;margin-top:3px;
-    text-shadow:0 0 14px rgba(100,210,255,.5)}
+  .lbl{font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:rgba(160,195,235,.6);line-height:1}
+  #score{font-size:26px;font-weight:700;letter-spacing:.02em;line-height:1;margin-top:3px;
+    text-shadow:0 0 16px rgba(120,210,255,.55);color:#ffffff}
   #mult{font-size:9.5px;letter-spacing:.15em;color:#ffd28a;margin-top:2px}
 
-  #pSector{position:absolute;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);text-align:center}
-  #secName{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(210,230,255,.9);font-weight:600}
-  #objText{font-size:8.5px;letter-spacing:.15em;color:rgba(120,230,200,.85);margin-top:3px}
+  #pSector{position:absolute;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);text-align:center;width:min(260px,50vw)}
+  #secName{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(220,235,255,.95);font-weight:600}
+  #objText{font-size:8.5px;letter-spacing:.15em;color:rgba(120,240,210,.9);margin-top:3px}
 
   #pO2{position:absolute;top:calc(12px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right));width:130px;text-align:right}
   .tank-row{display:flex;gap:4px;justify-content:flex-end;margin-top:4px}
-  .tank{width:36px;height:7px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;border:1px solid rgba(255,210,90,.3)}
+  .tank{width:36px;height:8px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;border:1px solid rgba(255,210,90,.35)}
   .tank-fill{height:100%;width:100%;background:linear-gradient(90deg,#ffd24a,#ff9326);transform-origin:left;transition:transform .1s}
   #hud.low #pO2 .tank-fill{animation:pulseRed .4s infinite}
   @keyframes pulseRed{0%,100%{filter:none}50%{filter:brightness(2.2) hue-rotate(-50deg)}}
 
-  #radar{position:absolute;top:calc(70px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right));
-    width:48px;height:48px;border-radius:50%;border:1px solid rgba(100,200,255,.2);background:rgba(6,14,28,.35);
-    backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center}
+  #radar{position:absolute;top:calc(68px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right));
+    width:46px;height:46px;border-radius:50%;border:1px solid rgba(120,210,255,.25);background:rgba(6,14,28,.4);
+    backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center}
   #navArrow{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
-    border-bottom:12px solid #68d8d6;transform-origin:50% 80%;filter:drop-shadow(0 0 4px #68d8d6)}
+    border-bottom:12px solid #68d8d6;transform-origin:50% 80%;filter:drop-shadow(0 0 5px #68d8d6)}
 
-  /* Touch UI Controls */
+  /* Touch Controls */
   #touchUI{position:fixed;inset:0;pointer-events:none;z-index:6}
   .tbtn{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:center;
-    flex-direction:column;gap:1px;border-radius:50%;
-    border:1.5px solid rgba(130,210,255,.35);background:rgba(15,35,65,.35);
-    color:rgba(210,240,255,.9);backdrop-filter:blur(3px);
+    flex-direction:column;gap:2px;border-radius:50%;
+    border:1.5px solid rgba(140,215,255,.35);background:rgba(12,28,52,.4);
+    color:rgba(215,245,255,.92);backdrop-filter:blur(3px);
     font-size:9px;letter-spacing:.12em;text-transform:uppercase;
     -webkit-tap-highlight-color:transparent;transition:transform .1s, background .15s}
-  .tbtn:active,.tbtn.held{background:rgba(90,190,255,.4);border-color:rgba(160,230,255,.9);transform:scale(.94)}
-  .tbtn .ico{font-size:18px;line-height:1}
+  .tbtn:active,.tbtn.held{background:rgba(90,190,255,.45);border-color:rgba(160,235,255,.95);transform:scale(.94)}
+  .tbtn .ico{font-size:19px;line-height:1}
 
-  #tTether{right:calc(16px + env(safe-area-inset-right));bottom:calc(86px + env(safe-area-inset-bottom));
-    width:86px;height:86px;border-color:rgba(100,225,235,.5);color:#7dfdfd}
-  #tTether:active,#tTether.held{background:rgba(80,220,230,.35)}
-  #tGun{right:calc(110px + env(safe-area-inset-right));bottom:calc(56px + env(safe-area-inset-bottom));
-    width:62px;height:62px;border-color:rgba(255,100,100,.45);color:#ff9e9e}
-  #tCut{right:calc(28px + env(safe-area-inset-right));bottom:calc(186px + env(safe-area-inset-bottom));
-    width:56px;height:56px;border-color:rgba(255,200,90,.45);color:#ffd982}
+  #tTether{right:calc(16px + env(safe-area-inset-right));bottom:calc(84px + env(safe-area-inset-bottom));
+    width:88px;height:88px;border-color:rgba(100,230,240,.55);color:#7dfdfd}
+  #tTether:active,#tTether.held{background:rgba(80,225,235,.35)}
+  #tGun{right:calc(112px + env(safe-area-inset-right));bottom:calc(54px + env(safe-area-inset-bottom));
+    width:62px;height:62px;border-color:rgba(255,100,100,.5);color:#ff9e9e}
+  #tCut{right:calc(28px + env(safe-area-inset-right));bottom:calc(184px + env(safe-area-inset-bottom));
+    width:56px;height:56px;border-color:rgba(255,200,90,.5);color:#ffd982}
   #tPause{top:calc(12px + env(safe-area-inset-top));left:calc(140px + env(safe-area-inset-left));
     width:34px;height:34px;border-radius:8px;font-size:11px;opacity:.6}
 
   #stickArea{position:absolute;left:0;bottom:0;width:55vw;height:65vh;pointer-events:auto}
-  #stickBase{position:absolute;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;
-    border:1.5px solid rgba(140,210,255,.3);background:rgba(10,25,50,.25);display:none;pointer-events:none}
-  #stickNub{position:absolute;width:30px;height:30px;border-radius:50%;left:50%;top:50%;
-    margin:-15px 0 0 -15px;background:rgba(120,220,255,.5);box-shadow:0 0 12px rgba(90,200,255,.7)}
+  #stickBase{position:absolute;width:82px;height:82px;margin:-41px 0 0 -41px;border-radius:50%;
+    border:1.5px solid rgba(140,210,255,.3);background:rgba(8,20,40,.3);display:none;pointer-events:none}
+  #stickNub{position:absolute;width:32px;height:32px;border-radius:50%;left:50%;top:50%;
+    margin:-16px 0 0 -16px;background:rgba(120,220,255,.55);box-shadow:0 0 14px rgba(90,200,255,.75)}
 
-  /* Popups and Alerts */
   #pops{position:absolute;inset:0;overflow:hidden;pointer-events:none}
   .pop{position:absolute;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
     white-space:nowrap;transform:translate(-50%,-50%);animation:popAnim 1s ease-out forwards;text-shadow:0 0 12px currentColor}
@@ -85,7 +84,7 @@
   #bSub{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(170,210,250,.8);margin-top:6px}
   @keyframes bann{0%{opacity:0;letter-spacing:.4em}18%{opacity:1}72%{opacity:1}100%{opacity:0}}
 
-  /* Start & Game Over Screen */
+  /* Start & Overlays */
   #ov{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
     justify-content:center;justify-content:safe center;
     background:radial-gradient(ellipse at 50% 45%,rgba(6,12,24,.4),rgba(2,4,8,.96));backdrop-filter:blur(4px);
@@ -157,8 +156,8 @@
   <div class="sub">1968 Spacewalk Duel &bull; Webcade Arcade</div>
   <div id="stats"></div>
   <div class="keys">
-    <em>Left thumb drag</em> to fire RCS thrusters<br>
-    <em>◎ Tether</em> to harpoon & swing around satellites<br>
+    <em>Left thumb drag</em> to fire RCS gas thrusters<br>
+    <em>◎ Tether</em> to harpoon & sling around satellites<br>
     <em>⚡ Laser</em> to shoot rogues &nbsp;·&nbsp; <em>✂ Cut</em> lifelines<br>
     Collect <em>yellow O2 tanks</em> to maintain life support
   </div>
@@ -175,100 +174,162 @@
 (function(){
 
 /* ============================================================================
-   VOID TETHER — Zero-G Spacewalk Action (1968 Pulp Aesthetic)
+   VOID TETHER — Faithful 1968 Pulp Space Art Engine
    ==========================================================================*/
 
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 
-let W = canvas.width = window.innerWidth;
-let H = canvas.height = window.innerHeight;
+let dpr = Math.min(window.devicePixelRatio||1, 2);
+let W = 0, H = 0;
 
 function resize(){
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+  dpr = Math.min(window.devicePixelRatio||1, 2);
+  W = canvas.width = Math.floor(window.innerWidth * dpr);
+  H = canvas.height = Math.floor(window.innerHeight * dpr);
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
 }
 window.addEventListener('resize', resize);
+resize();
 
 function vibrate(ms){
   if(navigator.vibrate){ try{ navigator.vibrate(ms); }catch(e){} }
 }
 
-/* Procedural Retro Space Sound Synthesizer */
+/* ========================================================== audio engine ===
+   Atmospheric analog synth chords + multi-layer gas thrusters + metallic cable pings
+   ======================================================================== */
 const AU = (function(){
-  let ctx=null, master=null, muted=false;
+  let actx=null, master=null, droneGain=null, muted=false;
   function init(){
-    if(ctx) return;
+    if(actx) return;
     const AC = window.AudioContext||window.webkitAudioContext;
     if(!AC) return;
-    try{ ctx = new AC(); master=ctx.createGain(); master.gain.value=0.8; master.connect(ctx.destination); }catch(e){}
-  }
-  function resume(){ if(ctx && ctx.state==='suspended') ctx.resume(); }
+    try{
+      actx = new AC();
+      master = actx.createGain();
+      master.gain.value = 0.85;
+      master.connect(actx.destination);
 
+      // Deep space void ambient drone
+      startVoidDrone();
+    }catch(e){}
+  }
+  function resume(){ if(actx && actx.state==='suspended') actx.resume(); }
+
+  function startVoidDrone(){
+    if(!actx) return;
+    droneGain = actx.createGain();
+    droneGain.gain.value = 0.12;
+    droneGain.connect(master);
+
+    // Minor 9th space chords (C, Eb, G, Bb, D)
+    const freqs = [65.41, 77.78, 98.00, 116.54, 146.83];
+    freqs.forEach((f, i)=>{
+      const osc = actx.createOscillator();
+      osc.type = i%2===0 ? 'sawtooth' : 'sine';
+      osc.frequency.value = f;
+      const flt = actx.createBiquadFilter();
+      flt.type = 'lowpass';
+      flt.frequency.value = 220 + i*40;
+      const g = actx.createGain();
+      g.gain.value = 0.2 / (i+1);
+      osc.connect(flt);
+      flt.connect(g);
+      g.connect(droneGain);
+      osc.start();
+    });
+  }
+
+  // Pressurized Gas Thruster (multi-layer noise burst + sub body)
   function rcs(){
-    if(!ctx || muted) return;
-    const t = ctx.currentTime;
-    const b = ctx.createBuffer(1, ctx.sampleRate*0.06, ctx.sampleRate);
-    const d = b.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.exp(-i/(ctx.sampleRate*0.02));
-    const s = ctx.createBufferSource(); s.buffer=b;
-    const f = ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=800;
-    const g = ctx.createGain(); g.gain.value=0.15;
-    s.connect(f); f.connect(g); g.connect(master);
+    if(!actx || muted) return;
+    const t = actx.currentTime;
+    const buf = actx.createBuffer(1, actx.sampleRate*0.08, actx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.exp(-i/(actx.sampleRate*0.025));
+    const s = actx.createBufferSource(); s.buffer=buf;
+    const bp = actx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=650; bp.Q.value=1.5;
+    const g = actx.createGain(); g.gain.value=0.22;
+    s.connect(bp); bp.connect(g); g.connect(master);
     s.start(t);
   }
+
+  // Laser Dart Blaster (1960s resonant FM zap)
   function laser(){
-    if(!ctx || muted) return;
-    const t = ctx.currentTime;
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type='sawtooth';
-    o.frequency.setValueAtTime(880, t);
-    o.frequency.exponentialRampToValueAtTime(110, t+0.12);
-    g.gain.setValueAtTime(0.2, t);
-    g.gain.exponentialRampToValueAtTime(0.001, t+0.12);
-    o.connect(g); g.connect(master);
-    o.start(t); o.stop(t+0.13);
+    if(!actx || muted) return;
+    const t = actx.currentTime;
+    const o = actx.createOscillator();
+    const g = actx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(1200, t);
+    o.frequency.exponentialRampToValueAtTime(80, t+0.14);
+    const flt = actx.createBiquadFilter();
+    flt.type = 'lowpass';
+    flt.frequency.setValueAtTime(3200, t);
+    flt.frequency.exponentialRampToValueAtTime(300, t+0.14);
+    g.gain.setValueAtTime(0.3, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t+0.14);
+    o.connect(flt); flt.connect(g); g.connect(master);
+    o.start(t); o.stop(t+0.15);
   }
+
+  // Metallic Harpoon Tether Lock (dual-frequency metallic twang)
   function tether(){
-    if(!ctx || muted) return;
-    const t = ctx.currentTime;
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type='sine';
-    o.frequency.setValueAtTime(320, t);
-    o.frequency.exponentialRampToValueAtTime(1240, t+0.09);
-    g.gain.setValueAtTime(0.25, t);
+    if(!actx || muted) return;
+    const t = actx.currentTime;
+    for(const f of [480, 1440]){
+      const o = actx.createOscillator();
+      const g = actx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(f, t);
+      o.frequency.exponentialRampToValueAtTime(f*0.6, t+0.12);
+      g.gain.setValueAtTime(0.25, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t+0.12);
+      o.connect(g); g.connect(master);
+      o.start(t); o.stop(t+0.13);
+    }
+  }
+
+  // Cable Cut + Decompression Hiss
+  function cut(){
+    if(!actx || muted) return;
+    const t = actx.currentTime;
+    const o = actx.createOscillator();
+    const g = actx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(1800, t);
+    o.frequency.exponentialRampToValueAtTime(240, t+0.09);
+    g.gain.setValueAtTime(0.35, t);
     g.gain.exponentialRampToValueAtTime(0.001, t+0.1);
     o.connect(g); g.connect(master);
-    o.start(t); o.stop(t+0.1);
+    o.start(t); o.stop(t+0.11);
   }
-  function cut(){
-    if(!ctx || muted) return;
-    const t = ctx.currentTime;
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type='triangle';
-    o.frequency.setValueAtTime(1400, t);
-    o.frequency.exponentialRampToValueAtTime(400, t+0.08);
-    g.gain.setValueAtTime(0.3, t);
-    g.gain.exponentialRampToValueAtTime(0.001, t+0.09);
-    o.connect(g); g.connect(master);
-    o.start(t); o.stop(t+0.09);
-  }
+
+  // Oxygen Canister Pickup (crystal triad chime)
   function pickup(){
-    if(!ctx || muted) return;
-    const t = ctx.currentTime;
-    [523.25, 659.25, 783.99].forEach((f,i)=>{
-      const o=ctx.createOscillator(), g=ctx.createGain();
-      o.type='sine'; o.frequency.value=f;
-      g.gain.setValueAtTime(0.15, t+i*0.05);
-      g.gain.exponentialRampToValueAtTime(0.001, t+i*0.05+0.15);
+    if(!actx || muted) return;
+    const t = actx.currentTime;
+    [523.25, 659.25, 783.99, 1046.50].forEach((f, i)=>{
+      const o = actx.createOscillator();
+      const g = actx.createGain();
+      o.type = 'sine';
+      o.frequency.value = f;
+      g.gain.setValueAtTime(0.18, t+i*0.045);
+      g.gain.exponentialRampToValueAtTime(0.001, t+i*0.045+0.22);
       o.connect(g); g.connect(master);
-      o.start(t+i*0.05); o.stop(t+i*0.05+0.16);
+      o.start(t+i*0.045); o.stop(t+i*0.045+0.24);
     });
   }
 
   return {
     init, resume, rcs, laser, tether, cut, pickup,
-    toggle(){ muted=!muted; if(master) master.gain.value = muted?0:0.8; return muted; },
+    toggle(){
+      muted = !muted;
+      if(master) master.gain.value = muted ? 0 : 0.85;
+      return muted;
+    },
     get muted(){ return muted; }
   };
 })();
@@ -279,59 +340,71 @@ const S = {
   kills:0, rescues:0, bestScore:0
 };
 
-// Player astronaut
+// Player (White & Crimson Cosmonaut)
 const P = {
-  x:0, y:0, vx:0, vy:0, angle:0, r:18,
-  tethering:false, tetherTarget:null, tetherLen:0, tetherMax:280,
-  thrusting:false
+  x:0, y:0, vx:0, vy:0, angle:0, r:24,
+  tetherTarget:null, tetherLen:0, tetherMax:320,
+  cableNodes:[], armReach:0
 };
+
+// Initialize cable segments for physics
+for(let i=0;i<10;i++) P.cableNodes.push({ x:0, y:0, px:0, py:0 });
 
 const camera = { x:0, y:0 };
 const stars = [];
-for(let i=0;i<220;i++){
-  stars.push({ x:(Math.random()-0.5)*3000, y:(Math.random()-0.5)*3000, z:0.2+Math.random()*0.8, r:0.8+Math.random()*1.5, c:Math.random()<0.2?'#ffb2a0':'#ffffff' });
+for(let i=0;i<240;i++){
+  stars.push({
+    x:(Math.random()-0.5)*4000, y:(Math.random()-0.5)*4000,
+    z:0.2+Math.random()*0.8, r:0.8+Math.random()*1.8,
+    c:Math.random()<0.15?'#ffc2b0':Math.random()<0.15?'#aae0ff':'#ffffff',
+    glint:Math.random()<0.08
+  });
 }
 
 const objects = [];
 const enemies = [];
 const lasers = [];
 const particles = [];
-let mothership = { x:0, y:-380, r:45, angle:-Math.PI/2 };
+let mothership = { x:0, y:-450, angle:-Math.PI/2, r:55 };
 
 function spawnSector(sec){
   objects.length=0; enemies.length=0; lasers.length=0; particles.length=0;
   P.x=0; P.y=0; P.vx=0; P.vy=0; P.tetherTarget=null;
-  mothership.x=0; mothership.y=-420;
+  mothership.x=0; mothership.y=-450;
 
-  // Spawn satellites / derelicts
-  for(let i=0;i<8+sec*2;i++){
-    const ang = Math.random()*Math.PI*2, dist = 220 + Math.random()*900;
+  // Derelict Satellites with solar wings
+  for(let i=0;i<7+sec*2;i++){
+    const ang = Math.random()*Math.PI*2, dist = 240 + Math.random()*950;
     objects.push({
-      type:'sat', x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, r:22+Math.random()*16,
-      angle:Math.random()*Math.PI*2, spin:(Math.random()-0.5)*0.015,
-      hasO2:Math.random()<0.6
+      type:'sat', x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, r:28+Math.random()*18,
+      angle:Math.random()*Math.PI*2, spin:(Math.random()-0.5)*0.012
     });
   }
 
-  // Spawn floating O2 canisters
+  // Floating Yellow Triple-O2 Tanks
   for(let i=0;i<6+sec;i++){
-    const ang = Math.random()*Math.PI*2, dist = 180 + Math.random()*850;
-    objects.push({ type:'o2', x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, r:12, angle:Math.random()*6.28, spin:0.02 });
-  }
-
-  // Spawn hostile cosmonauts
-  for(let i=0;i<sec+1;i++){
-    const ang = Math.random()*Math.PI*2, dist = 350 + Math.random()*600;
-    enemies.push({
-      x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, vx:0, vy:0, angle:0, r:18,
-      hp:2, shootCD:2+Math.random()*2, tetherTo:null
+    const ang = Math.random()*Math.PI*2, dist = 200 + Math.random()*900;
+    objects.push({
+      type:'o2', x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, r:16,
+      angle:Math.random()*6.28, spin:0.015
     });
   }
 
-  banner('SECTOR '+sec, sec===1?'Derelict Graveyard':sec===2?'Hostile Intercept':'Solar Storm');
+  // Sage-Green Cosmonauts (matching the illustration)
+  for(let i=0;i<sec+1;i++){
+    const ang = Math.random()*Math.PI*2, dist = 380 + Math.random()*650;
+    const en = {
+      x:Math.cos(ang)*dist, y:Math.sin(ang)*dist, vx:0, vy:0, angle:Math.random()*6.28, r:24,
+      hp:2, shootCD:2.5+Math.random()*2, hoseNodes:[]
+    };
+    for(let k=0;k<6;k++) en.hoseNodes.push({ x:en.x, y:en.y, px:en.x, py:en.y });
+    enemies.push(en);
+  }
+
+  banner('SECTOR '+sec, sec===1?'Derelict Graveyard':sec===2?'Hostile Cosmonauts':'Deep Void Intercept');
 }
 
-/* Touch Steering */
+/* ============================================================= touch UI === */
 const stick = { active:false, startX:0, startY:0, curX:0, curY:0, dx:0, dy:0 };
 const stickArea = document.getElementById('stickArea');
 const stickBase = document.getElementById('stickBase');
@@ -349,8 +422,8 @@ window.addEventListener('pointermove', e=>{
   stick.curX=e.clientX; stick.curY=e.clientY;
   let dx=stick.curX-stick.startX, dy=stick.curY-stick.startY;
   const dist=Math.hypot(dx,dy);
-  if(dist>38){ dx=(dx/dist)*38; dy=(dy/dist)*38; }
-  stick.dx=dx/38; stick.dy=dy/38;
+  if(dist>40){ dx=(dx/dist)*40; dy=(dy/dist)*40; }
+  stick.dx=dx/40; stick.dy=dy/40;
   stickNub.style.transform=`translate(${dx}px, ${dy}px)`;
 });
 const endStick=()=>{
@@ -360,7 +433,6 @@ const endStick=()=>{
 window.addEventListener('pointerup', endStick);
 window.addEventListener('pointercancel', endStick);
 
-// Buttons
 function btn(id, fn){
   const el=document.getElementById(id);
   if(!el) return;
@@ -369,12 +441,12 @@ function btn(id, fn){
 
 btn('tTether', ()=>{
   if(P.tetherTarget){
-    // Detach and sling
+    // Slingshot release
     P.tetherTarget=null;
-    pop('SLINGSHOT','#68d8d6');
-    vibrate(25);
+    pop('SLINGSHOT!','#68d8d6');
+    vibrate(30);
   } else {
-    // Find nearest latchable satellite or enemy
+    // Acquire latch
     let best=null, bestD=P.tetherMax;
     for(const obj of objects){
       const d=Math.hypot(obj.x-P.x, obj.y-P.y);
@@ -387,7 +459,9 @@ btn('tTether', ()=>{
     if(best){
       P.tetherTarget=best;
       P.tetherLen=bestD;
-      AU.tether(); vibrate(30);
+      P.armReach=1.0;
+      for(const node of P.cableNodes){ node.x=P.x; node.y=P.y; node.px=P.x; node.py=P.y; }
+      AU.tether(); vibrate(35);
       pop('TETHER LATCHED','#68d8d6');
     }
   }
@@ -395,24 +469,22 @@ btn('tTether', ()=>{
 
 btn('tGun', ()=>{
   AU.laser(); vibrate(20);
-  const spd=14;
-  lasers.push({ x:P.x, y:P.y, vx:Math.cos(P.angle)*spd + P.vx*0.5, vy:Math.sin(P.angle)*spd + P.vy*0.5, life:1.2, friendly:true });
+  const spd=16;
+  lasers.push({ x:P.x, y:P.y, vx:Math.cos(P.angle)*spd + P.vx*0.4, vy:Math.sin(P.angle)*spd + P.vy*0.4, life:1.3, friendly:true });
 });
 
 btn('tCut', ()=>{
-  AU.cut(); vibrate(35);
+  AU.cut(); vibrate(40);
   if(P.tetherTarget){
     P.tetherTarget=null;
-    pop('TETHER CUT','#ff9e9e');
+    pop('TETHER SEVERED','#ff9e9e');
   }
-  // Cut any nearby enemy tethers
   for(const en of enemies){
-    if(Math.hypot(en.x-P.x, en.y-P.y) < 60){
-      en.tetherTo=null;
+    if(Math.hypot(en.x-P.x, en.y-P.y) < 70){
       en.hp-=1;
-      pop('SABOTAGE +250','#ffd28a');
-      S.score+=250;
-      burst(en.x, en.y, '#ffd28a', 12);
+      pop('SABOTAGE +300','#ffd28a');
+      S.score+=300;
+      burst(en.x, en.y, '#ffd28a', 16);
     }
   }
 });
@@ -430,7 +502,7 @@ document.getElementById('mute').addEventListener('click', ()=>{
 function pop(text, col){
   const d=document.createElement('div');
   d.className='pop'; d.textContent=text; d.style.color=col;
-  d.style.left=(48+Math.random()*6)+'%'; d.style.top=(45+Math.random()*6)+'%';
+  d.style.left=(48+Math.random()*6)+'%'; d.style.top=(44+Math.random()*6)+'%';
   document.getElementById('pops').appendChild(d);
   setTimeout(()=>d.remove(), 1000);
 }
@@ -442,7 +514,7 @@ function banner(title, sub){
 }
 function burst(x,y,col,count){
   for(let i=0;i<count;i++){
-    const ang=Math.random()*Math.PI*2, spd=1+Math.random()*5;
+    const ang=Math.random()*Math.PI*2, spd=1+Math.random()*6;
     particles.push({ x, y, vx:Math.cos(ang)*spd, vy:Math.sin(ang)*spd, col, life:0.4+Math.random()*0.5, maxLife:0.9 });
   }
 }
@@ -461,12 +533,12 @@ function gameOver(){
   S.mode='over';
   S.bestScore=Math.max(S.bestScore, Math.floor(S.score));
   document.getElementById('stats').innerHTML =
-    'Final Score: <b>'+Math.floor(S.score).toLocaleString()+'</b> &bull; Sector <b>'+S.sector+'</b><br>'+
+    'Score: <b>'+Math.floor(S.score).toLocaleString()+'</b> &bull; Sector <b>'+S.sector+'</b><br>'+
     '<span style="opacity:.6">Best: '+S.bestScore.toLocaleString()+'</span>';
   document.getElementById('start').textContent='Relaunch';
   document.getElementById('ov').classList.remove('hide');
   document.getElementById('hud').classList.remove('on');
-  vibrate(300);
+  vibrate(350);
   notifyArcade('gameOver', { score: Math.floor(S.score), sector: S.sector });
   notifyArcade('webcade_score', { score: Math.floor(S.score), kills: S.kills });
 }
@@ -477,31 +549,31 @@ function update(dt){
   if(S.mode!=='play') return;
 
   // Oxygen drain
-  S.o2 -= dt*1.2;
+  S.o2 -= dt*1.1;
   if(stick.active){
-    S.o2 -= dt*2.0; // Thrusters burn oxygen
+    S.o2 -= dt*1.8;
     AU.rcs();
-    const thrust=120;
+    const thrust=135;
     P.vx += stick.dx*thrust*dt;
     P.vy += stick.dy*thrust*dt;
     P.angle = Math.atan2(stick.dy, stick.dx);
 
-    // Puff particles
-    if(Math.random()<0.6){
+    if(Math.random()<0.65){
       particles.push({
-        x:P.x - Math.cos(P.angle)*14, y:P.y - Math.sin(P.angle)*14,
-        vx:-Math.cos(P.angle)*40 + (Math.random()-0.5)*10, vy:-Math.sin(P.angle)*40 + (Math.random()-0.5)*10,
-        col:'rgba(220,240,255,0.7)', life:0.25, maxLife:0.25
+        x:P.x - Math.cos(P.angle)*16, y:P.y - Math.sin(P.angle)*16,
+        vx:-Math.cos(P.angle)*45 + (Math.random()-0.5)*12, vy:-Math.sin(P.angle)*45 + (Math.random()-0.5)*12,
+        col:'rgba(210,240,255,0.75)', life:0.26, maxLife:0.26
       });
     }
   }
 
-  // Physics drift
+  // Zero-g inertia
   P.x += P.vx*dt; P.y += P.vy*dt;
-  P.vx *= Math.pow(0.985, dt*60);
-  P.vy *= Math.pow(0.985, dt*60);
+  P.vx *= Math.pow(0.988, dt*60);
+  P.vy *= Math.pow(0.988, dt*60);
+  P.armReach = Math.max(0, P.armReach - dt*2.0);
 
-  // Tether mechanics
+  // Verlet Rope Simulation for Tether
   if(P.tetherTarget){
     const tx = P.tetherTarget.x, ty = P.tetherTarget.y;
     const dx = tx - P.x, dy = ty - P.y;
@@ -510,50 +582,68 @@ function update(dt){
       const nx = dx/dist, ny = dy/dist;
       const dot = P.vx*nx + P.vy*ny;
       if(dot < 0){
-        // Remove outward velocity, preserve tangential swing
         P.vx -= dot*nx; P.vy -= dot*ny;
       }
       P.x = tx - nx*P.tetherLen;
       P.y = ty - ny*P.tetherLen;
     }
-    // Slowly reel in
-    P.tetherLen = Math.max(30, P.tetherLen - dt*40);
+    P.tetherLen = Math.max(35, P.tetherLen - dt*45);
+
+    // Update cable nodes
+    const N = P.cableNodes.length;
+    P.cableNodes[0].x = P.x; P.cableNodes[0].y = P.y;
+    P.cableNodes[N-1].x = tx; P.cableNodes[N-1].y = ty;
+    for(let i=1;i<N-1;i++){
+      const node = P.cableNodes[i];
+      const vx = (node.x - node.px)*0.95, vy = (node.y - node.py)*0.95;
+      node.px = node.x; node.py = node.y;
+      node.x += vx; node.y += vy;
+    }
+    for(let iter=0;iter<3;iter++){
+      for(let i=0;i<N-1;i++){
+        const n1=P.cableNodes[i], n2=P.cableNodes[i+1];
+        const ddx=n2.x-n1.x, ddy=n2.y-n1.y, dlen=Math.hypot(ddx,ddy)||1;
+        const targetD = P.tetherLen/(N-1);
+        const diff = (dlen - targetD)/dlen * 0.5;
+        if(i>0){ n1.x += ddx*diff; n1.y += ddy*diff; }
+        if(i+1<N-1){ n2.x -= ddx*diff; n2.y -= ddy*diff; }
+      }
+    }
   }
 
-  // Update satellites & objects
+  // Objects & O2 Canisters
   for(let i=objects.length-1;i>=0;i--){
     const obj=objects[i];
     obj.angle += obj.spin;
-    // O2 pickup collision
     if(obj.type==='o2'){
       if(Math.hypot(obj.x-P.x, obj.y-P.y) < P.r + obj.r){
         S.o2 = Math.min(S.maxO2, S.o2 + 35);
-        S.score += 150*S.mult;
+        S.score += 200*S.mult;
         AU.pickup(); vibrate(20);
         pop('+35% OXYGEN','#ffd24a');
-        burst(obj.x, obj.y, '#ffd24a', 15);
+        burst(obj.x, obj.y, '#ffd24a', 16);
         objects.splice(i,1);
       }
     }
   }
 
-  // Update enemies
+  // Sage-Green Cosmonauts
   for(let i=enemies.length-1;i>=0;i--){
     const en=enemies[i];
     const dx=P.x-en.x, dy=P.y-en.y, dist=Math.hypot(dx,dy);
-    en.angle=Math.atan2(dy,dx);
-    if(dist>100){ en.vx+=Math.cos(en.angle)*50*dt; en.vy+=Math.sin(en.angle)*50*dt; }
+    en.angle = Math.atan2(dy,dx);
+    if(dist>110){ en.vx+=Math.cos(en.angle)*52*dt; en.vy+=Math.sin(en.angle)*52*dt; }
     en.x+=en.vx*dt; en.y+=en.vy*dt;
-    en.vx*=0.97; en.vy*=0.97;
+    en.vx*=0.975; en.vy*=0.975;
 
     en.shootCD -= dt;
-    if(en.shootCD<=0 && dist<350){
-      en.shootCD=2.5+Math.random()*1.5;
-      lasers.push({ x:en.x, y:en.y, vx:Math.cos(en.angle)*10, vy:Math.sin(en.angle)*10, life:1.5, friendly:false });
+    if(en.shootCD<=0 && dist<380){
+      en.shootCD = 2.4+Math.random()*1.5;
+      lasers.push({ x:en.x, y:en.y, vx:Math.cos(en.angle)*11, vy:Math.sin(en.angle)*11, life:1.6, friendly:false });
     }
   }
 
-  // Update lasers
+  // Lasers
   for(let i=lasers.length-1;i>=0;i--){
     const l=lasers[i];
     l.x+=l.vx; l.y+=l.vy;
@@ -565,13 +655,13 @@ function update(dt){
         const en=enemies[j];
         if(Math.hypot(en.x-l.x, en.y-l.y) < en.r){
           en.hp--;
-          burst(l.x,l.y,'#ff9e9e',8);
+          burst(l.x,l.y,'#ff9e9e',10);
           lasers.splice(i,1);
           if(en.hp<=0){
-            burst(en.x,en.y,'#ff5252',24);
+            burst(en.x,en.y,'#ff4444',26);
             enemies.splice(j,1);
             S.score += 500*S.mult; S.kills++;
-            pop('ROGUE DOWN +500','#ff5252');
+            pop('COSMONAUT DOWN +500','#ff5252');
           }
           break;
         }
@@ -579,15 +669,15 @@ function update(dt){
     } else {
       if(Math.hypot(P.x-l.x, P.y-l.y) < P.r){
         S.o2 -= 18;
-        burst(P.x,P.y,'#ff3b3b',12);
+        burst(P.x,P.y,'#ff3b3b',14);
         lasers.splice(i,1);
-        vibrate(80);
+        vibrate(90);
         pop('SUIT BREACH -18%','#ff3b3b');
       }
     }
   }
 
-  // Update particles
+  // Particles
   for(let i=particles.length-1;i>=0;i--){
     const p=particles[i];
     p.x+=p.vx; p.y+=p.vy; p.life-=dt;
@@ -596,19 +686,19 @@ function update(dt){
 
   // Mothership docking
   const mDist = Math.hypot(mothership.x-P.x, mothership.y-P.y);
-  if(mDist < mothership.r + 20){
-    S.score += 1000;
+  if(mDist < mothership.r + 25){
+    S.score += 1200;
     S.sector++;
     AU.pickup();
     pop('MOTHERSHIP DOCKED!','#7dfdfd');
     spawnSector(S.sector);
   }
 
-  // Camera tracking
-  camera.x += (P.x - camera.x)*0.1;
-  camera.y += (P.y - camera.y)*0.1;
+  // Smooth Camera Follow
+  camera.x += (P.x - camera.x)*0.12;
+  camera.y += (P.y - camera.y)*0.12;
 
-  // HUD updates
+  // HUD
   document.getElementById('score').textContent=Math.floor(S.score).toLocaleString();
   const o2pct = Math.max(0, S.o2)/S.maxO2;
   document.getElementById('t1').style.transform=`scaleX(${Math.min(1, Math.max(0, (o2pct-0.66)/0.34))})`;
@@ -616,41 +706,228 @@ function update(dt){
   document.getElementById('t3').style.transform=`scaleX(${Math.min(1, Math.max(0, o2pct/0.33))})`;
   document.getElementById('hud').classList.toggle('low', o2pct < 0.25);
 
-  // Radar arrow to mothership
   const mAngle = Math.atan2(mothership.y-P.y, mothership.x-P.x);
   document.getElementById('navArrow').style.transform=`rotate(${mAngle + Math.PI/2}rad)`;
 
   if(S.o2<=0) gameOver();
 }
 
+/* ============================================================== draw ======
+   Faithful recreation of the painted 1968 pulp sci-fi illustration
+   ======================================================================== */
+
+// Draw White & Crimson Cosmonaut (Matching the Foreground Astronaut)
+function drawWhiteCosmonaut(ctx, x, y, angle, reach){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  // Black segmented air hose running from hip
+  ctx.strokeStyle = '#1a1e28';
+  ctx.lineWidth = 3.5;
+  ctx.beginPath();
+  ctx.moveTo(-10, 8);
+  ctx.bezierCurveTo(-26, 18, -32, -10, -42, 6);
+  ctx.stroke();
+
+  // Moon Boots (Brown leather with white fur fleece cuffs)
+  ctx.fillStyle = '#4a2c1d'; // Brown leather
+  ctx.fillRect(-22, -14, 10, 8);
+  ctx.fillRect(-22, 6, 10, 8);
+  ctx.fillStyle = '#ffffff'; // White fur cuffs
+  ctx.fillRect(-14, -15, 4, 10);
+  ctx.fillRect(-14, 5, 4, 10);
+
+  // Legs (Cream suit with crimson red racing stripe)
+  ctx.fillStyle = '#f2f5f8';
+  ctx.beginPath(); ctx.ellipse(-8, -9, 10, 5, 0, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(-8, 9, 10, 5, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#d92525'; // Crimson leg stripes
+  ctx.fillRect(-12, -10, 10, 2.5);
+  ctx.fillRect(-12, 7.5, 10, 2.5);
+
+  // Torso / Jumpsuit
+  ctx.fillStyle = '#f2f5f8';
+  ctx.beginPath(); ctx.ellipse(0, 0, 16, 13, 0, 0, Math.PI*2); ctx.fill();
+
+  // Bold Crimson Red Racing Stripe down chest
+  ctx.fillStyle = '#d92525';
+  ctx.fillRect(-12, -4, 24, 8);
+
+  // Black Ribbed Cartridge / Utility Belt
+  ctx.fillStyle = '#1e2430';
+  ctx.fillRect(-8, -12, 6, 24);
+  ctx.fillStyle = '#c0c8d4'; // Chrome Buckle & Holstered Raygun
+  ctx.fillRect(-6, -11, 4, 5);
+  ctx.fillRect(-4, 6, 7, 4);
+
+  // Arms (Reaching out with white cuffs and gloves)
+  ctx.fillStyle = '#f2f5f8';
+  // Left arm
+  ctx.beginPath(); ctx.ellipse(4, -13, 8, 4, reach?0.4:-0.2, 0, Math.PI*2); ctx.fill();
+  // Right reaching arm (grapple pose)
+  ctx.beginPath(); ctx.ellipse(8 + reach*8, 11, 10, 4.5, reach?-0.4:0.2, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#d92525'; // Red wrist cuffs
+  ctx.fillRect(10 + reach*8, 9, 3, 4);
+
+  // Dark Collar / Neck Ring
+  ctx.fillStyle = '#2b3342';
+  ctx.beginPath(); ctx.ellipse(4, 0, 11, 11, 0, 0, Math.PI*2); ctx.fill();
+
+  // Retro Space Ranger Face (Dark styled hair & facial features)
+  ctx.fillStyle = '#ffcca3'; // Skin
+  ctx.beginPath(); ctx.ellipse(5, 0, 7, 7, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#201815'; // Dark hair
+  ctx.beginPath(); ctx.arc(4, -2, 6, Math.PI*0.8, Math.PI*1.9); ctx.fill();
+  ctx.fillRect(2, -4, 4, 3); // Sideburn
+
+  // Crystal Clear Spherical Glass Bubble Helmet
+  ctx.fillStyle = 'rgba(150, 220, 255, 0.3)';
+  ctx.strokeStyle = 'rgba(210, 245, 255, 0.85)';
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(6, 0, 12, 0, Math.PI*2);
+  ctx.fill();
+  ctx.stroke();
+
+  // Starburst / Specular Sun Glint on Glass Helmet (Matching the artwork)
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(9, -6, 2.5, 0, Math.PI*2);
+  ctx.fill();
+  // Glint cross
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(9, -11); ctx.lineTo(9, -1);
+  ctx.moveTo(4, -6); ctx.lineTo(14, -6);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+// Draw Sage-Green Cosmonaut with Yellow Triple Oxygen Tanks
+function drawGreenCosmonaut(ctx, x, y, angle){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  // Triple Yellow Oxygen Tanks on Back with black valve caps
+  ctx.fillStyle = '#ffd24a';
+  ctx.fillRect(-22, -9, 8, 5);
+  ctx.fillRect(-22, -3, 8, 5);
+  ctx.fillRect(-22, 3, 8, 5);
+  ctx.fillStyle = '#181b22'; // Black valve caps
+  ctx.fillRect(-24, -8, 2, 3);
+  ctx.fillRect(-24, -2, 2, 3);
+  ctx.fillRect(-24, 4, 2, 3);
+
+  // Coiled white life support hoses looping over shoulder
+  ctx.strokeStyle = '#e0e8f0';
+  ctx.lineWidth = 2.2;
+  ctx.beginPath();
+  ctx.moveTo(-14, -2);
+  ctx.bezierCurveTo(-10, -14, 0, -12, 4, -4);
+  ctx.stroke();
+
+  // Sage Green / Olive Suit Body
+  ctx.fillStyle = '#627a6c';
+  ctx.beginPath(); ctx.ellipse(0, 0, 15, 12, 0, 0, Math.PI*2); ctx.fill();
+
+  // Ribbed Suit Bands
+  ctx.strokeStyle = '#4e6256';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(-6, -10); ctx.lineTo(-6, 10);
+  ctx.moveTo(0, -11); ctx.lineTo(0, 11);
+  ctx.stroke();
+
+  // Limbs drifting in zero-g
+  ctx.fillStyle = '#627a6c';
+  ctx.beginPath(); ctx.ellipse(-10, -9, 9, 4, 0.4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(-10, 9, 9, 4, -0.4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6, -11, 7, 3.5, -0.3, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6, 11, 7, 3.5, 0.3, 0, Math.PI*2); ctx.fill();
+
+  // Head & Helmet
+  ctx.fillStyle = '#2b3342';
+  ctx.beginPath(); ctx.ellipse(3, 0, 10, 10, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#ffd6b0'; // Blonde astronaut face
+  ctx.beginPath(); ctx.ellipse(4, 0, 6, 6, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#c49e4d'; // Blonde hair
+  ctx.beginPath(); ctx.arc(3, -2, 5, Math.PI*0.7, Math.PI*1.9); ctx.fill();
+
+  // Bubble Helmet
+  ctx.fillStyle = 'rgba(140, 210, 255, 0.3)';
+  ctx.strokeStyle = 'rgba(190, 235, 255, 0.8)';
+  ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(5, 0, 11, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+
+  ctx.restore();
+}
+
+// Draw Needle-Nosed Delta Rocket Cruiser (Matching the Background Vessel)
+function drawDeltaRocketCruiser(ctx, x, y, angle){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  // Ion Thruster Flame
+  ctx.fillStyle = 'rgba(120, 225, 255, 0.85)';
+  ctx.beginPath();
+  ctx.moveTo(0, 32);
+  ctx.lineTo(6, 60 + Math.random()*15);
+  ctx.lineTo(0, 52);
+  ctx.lineTo(-6, 60 + Math.random()*15);
+  ctx.closePath();
+  ctx.fill();
+
+  // Main Needle Fuselage
+  ctx.fillStyle = '#edf2f7'; // Off-white hull
+  ctx.beginPath();
+  ctx.moveTo(0, -68); // Needle nose tip
+  ctx.lineTo(16, 32);
+  ctx.lineTo(0, 26);
+  ctx.lineTo(-16, 32);
+  ctx.closePath();
+  ctx.fill();
+
+  // Swept Delta Wings with Crimson Accents
+  ctx.fillStyle = '#d92525'; // Crimson Red Trim
+  // Dorsal needle stripe
+  ctx.beginPath(); ctx.moveTo(0, -68); ctx.lineTo(6, 28); ctx.lineTo(0, 26); ctx.closePath(); ctx.fill();
+  // Left wing tip
+  ctx.beginPath(); ctx.moveTo(0, 14); ctx.lineTo(-46, 38); ctx.lineTo(-16, 18); ctx.closePath(); ctx.fill();
+  // Right wing tip
+  ctx.beginPath(); ctx.moveTo(0, 14); ctx.lineTo(46, 38); ctx.lineTo(16, 18); ctx.closePath(); ctx.fill();
+
+  // Black cockpit windows / Sensor band
+  ctx.fillStyle = '#151b26';
+  ctx.fillRect(-3, -24, 6, 14);
+
+  ctx.restore();
+}
+
 function draw(){
-  ctx.fillStyle='#030509';
-  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#030408'; // Deep obsidian void
+  ctx.fillRect(0, 0, W, H);
 
   ctx.save();
-  ctx.translate(W/2 - camera.x, H/2 - camera.y);
+  ctx.scale(dpr, dpr);
+  ctx.translate(window.innerWidth/2 - camera.x, window.innerHeight/2 - camera.y);
 
-  // Parallax stars
+  // Parallax Stars with realistic glints
   for(const st of stars){
-    ctx.fillStyle=st.c;
+    ctx.fillStyle = st.c;
     ctx.beginPath();
-    ctx.arc(st.x + camera.x*(1-st.z), st.y + camera.y*(1-st.z), st.r*st.z, 0, Math.PI*2);
+    const sx = st.x + camera.x*(1-st.z);
+    const sy = st.y + camera.y*(1-st.z);
+    ctx.arc(sx, sy, st.r*st.z, 0, Math.PI*2);
     ctx.fill();
   }
 
-  // Mothership
-  ctx.save();
-  ctx.translate(mothership.x, mothership.y);
-  ctx.rotate(mothership.angle);
-  ctx.fillStyle='#f0f4fa';
-  ctx.beginPath();
-  ctx.moveTo(0, -65); ctx.lineTo(24, 40); ctx.lineTo(0, 30); ctx.lineTo(-24, 40); ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle='#ff3b3b';
-  ctx.beginPath(); ctx.moveTo(0,-65); ctx.lineTo(10,35); ctx.lineTo(0,30); ctx.closePath(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(0,30); ctx.lineTo(44,50); ctx.lineTo(24,20); ctx.closePath(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(0,30); ctx.lineTo(-44,50); ctx.lineTo(-24,20); ctx.closePath(); ctx.fill();
-  ctx.restore();
+  // Draw Background Delta Rocket Cruiser
+  drawDeltaRocketCruiser(ctx, mothership.x, mothership.y, mothership.angle);
 
   // Draw Satellites & Canisters
   for(const obj of objects){
@@ -658,89 +935,65 @@ function draw(){
     ctx.translate(obj.x, obj.y);
     ctx.rotate(obj.angle);
     if(obj.type==='sat'){
-      ctx.fillStyle='#4a5d78';
-      ctx.fillRect(-obj.r*0.6, -obj.r*0.6, obj.r*1.2, obj.r*1.2);
-      ctx.fillStyle='#1e3a5f';
-      ctx.fillRect(-obj.r*1.8, -obj.r*0.3, obj.r*1.0, obj.r*0.6);
-      ctx.fillRect(obj.r*0.8, -obj.r*0.3, obj.r*1.0, obj.r*0.6);
-      ctx.strokeStyle='#68d8d6'; ctx.strokeRect(-obj.r*1.8, -obj.r*0.3, obj.r*1.0, obj.r*0.6);
-      ctx.strokeRect(obj.r*0.8, -obj.r*0.3, obj.r*1.0, obj.r*0.6);
+      // Retro satellite with solar panels
+      ctx.fillStyle = '#3e4d62';
+      ctx.fillRect(-obj.r*0.5, -obj.r*0.5, obj.r, obj.r);
+      ctx.fillStyle = '#1c3452';
+      ctx.fillRect(-obj.r*1.8, -obj.r*0.25, obj.r*1.1, obj.r*0.5);
+      ctx.fillRect(obj.r*0.7, -obj.r*0.25, obj.r*1.1, obj.r*0.5);
+      ctx.strokeStyle = '#68d8d6'; ctx.lineWidth=1.5;
+      ctx.strokeRect(-obj.r*1.8, -obj.r*0.25, obj.r*1.1, obj.r*0.5);
+      ctx.strokeRect(obj.r*0.7, -obj.r*0.25, obj.r*1.1, obj.r*0.5);
     } else {
-      // O2 Canister
-      ctx.fillStyle='#ffd24a';
-      ctx.fillRect(-6,-12,12,24);
-      ctx.fillStyle='#333';
-      ctx.fillRect(-4,-15,8,3);
+      // Floating Yellow O2 Tank
+      ctx.fillStyle = '#ffd24a';
+      ctx.fillRect(-7, -13, 14, 26);
+      ctx.fillStyle = '#ff9326';
+      ctx.fillRect(-7, -4, 14, 8);
+      ctx.fillStyle = '#222';
+      ctx.fillRect(-4, -17, 8, 4);
     }
     ctx.restore();
   }
 
-  // Draw Tether Line
-  if(P.tetherTarget){
-    ctx.strokeStyle='#68d8d6';
-    ctx.lineWidth=2.5;
+  // Draw Dynamic Tether Line with Verlet Physics
+  if(P.tetherTarget && P.cableNodes.length>1){
+    ctx.strokeStyle = '#68d8d6';
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.moveTo(P.x, P.y);
-    ctx.lineTo(P.tetherTarget.x, P.tetherTarget.y);
+    ctx.moveTo(P.cableNodes[0].x, P.cableNodes[0].y);
+    for(let i=1;i<P.cableNodes.length;i++){
+      ctx.lineTo(P.cableNodes[i].x, P.cableNodes[i].y);
+    }
     ctx.stroke();
+    // Glowing Latch point
+    ctx.fillStyle = '#7dfdfd';
+    ctx.beginPath(); ctx.arc(P.tetherTarget.x, P.tetherTarget.y, 4.5, 0, Math.PI*2); ctx.fill();
   }
 
-  // Draw Enemies
+  // Draw Sage-Green Cosmonauts
   for(const en of enemies){
-    ctx.save();
-    ctx.translate(en.x, en.y);
-    ctx.rotate(en.angle);
-    ctx.fillStyle='#5a7365';
-    ctx.beginPath(); ctx.arc(0,0,14,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='rgba(140,210,255,0.7)';
-    ctx.beginPath(); ctx.arc(4,0,8,0,Math.PI*2); ctx.fill();
-    ctx.restore();
+    drawGreenCosmonaut(ctx, en.x, en.y, en.angle);
   }
 
-  // Draw Player Cosmonaut (Vintage Pulp Aesthetic)
-  ctx.save();
-  ctx.translate(P.x, P.y);
-  ctx.rotate(P.angle);
+  // Draw White & Crimson Player Cosmonaut
+  drawWhiteCosmonaut(ctx, P.x, P.y, P.angle, P.armReach);
 
-  // Triple yellow tanks
-  ctx.fillStyle='#ffd24a';
-  ctx.fillRect(-18,-9,8,18);
-  ctx.fillStyle='#ff9326';
-  ctx.fillRect(-18,-7,8,4);
-
-  // Suit body
-  ctx.fillStyle='#f0f4fa';
-  ctx.beginPath(); ctx.arc(0,0,14,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle='#ff3b3b';
-  ctx.fillRect(-6,-4,12,8); // Crimson chest stripe
-
-  // Glass Bubble Helmet
-  ctx.fillStyle='rgba(160,225,255,0.35)';
-  ctx.strokeStyle='rgba(200,240,255,0.85)';
-  ctx.lineWidth=2;
-  ctx.beginPath(); ctx.arc(6,0,10,0,Math.PI*2); ctx.fill(); ctx.stroke();
-
-  // Face inside helmet
-  ctx.fillStyle='#241b18';
-  ctx.beginPath(); ctx.arc(4,0,4,0,Math.PI*2); ctx.fill();
-
-  ctx.restore();
-
-  // Draw Lasers
+  // Draw Laser Darts
   for(const l of lasers){
-    ctx.strokeStyle=l.friendly?'#7dfdfd':'#ff5252';
-    ctx.lineWidth=3;
+    ctx.strokeStyle = l.friendly ? '#7dfdfd' : '#ff4242';
+    ctx.lineWidth = 3.5;
     ctx.beginPath();
     ctx.moveTo(l.x, l.y);
-    ctx.lineTo(l.x - l.vx*2, l.y - l.vy*2);
+    ctx.lineTo(l.x - l.vx*2.2, l.y - l.vy*2.2);
     ctx.stroke();
   }
 
-  // Draw Particles
+  // Draw Gas Particles
   for(const p of particles){
-    ctx.fillStyle=p.col;
+    ctx.fillStyle = p.col;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 2.5*(p.life/p.maxLife), 0, Math.PI*2);
+    ctx.arc(p.x, p.y, 3.0*(p.life/p.maxLife), 0, Math.PI*2);
     ctx.fill();
   }
 
@@ -758,7 +1011,7 @@ function loop(){
   requestAnimationFrame(loop);
 }
 
-/* WebCade / Arcade Host Integration Protocol */
+/* WebCade Arcade host bridge */
 function notifyArcade(event, data){
   try {
     const payload = Object.assign({ voidTether: event, time: Date.now() }, data || {});
